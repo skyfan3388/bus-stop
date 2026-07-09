@@ -16,7 +16,7 @@ input, select { padding:10px; font-size:16px; }
 </head>
 <body>
 
-<h2></h2>
+<h2>巴士路線查詢</h2>
 
 <div class="container">
     <input type="text" id="routeInput" class="routeInput" placeholder="請輸入巴士號碼">
@@ -34,26 +34,14 @@ const routeInput = document.getElementById("routeInput");
 const stopSelect = document.getElementById("stopSelect");
 const directionSelect = document.getElementById("directionSelect");
 
-let allStops = [];   // ✅ 儲存全部 stop
+let currentRoutes = [];   // ✅ 儲存 route API 結果
 let debounceTimer;
 
-/* 預先下載所有站資料（只做一次） */
-fetch("https://data.etabus.gov.hk/v1/transport/kmb/stop/")
-.then(res => res.json())
-.then(data => {
-    if (data && data.data) {
-        allStops = data.data;
-        console.log("Stops loaded:", allStops.length);
-    }
-});
-
-/* 自動搜尋 */
 routeInput.addEventListener("input", function () {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(loadRoute, 500);
 });
 
-/* 揀終點站 */
 directionSelect.addEventListener("change", loadStops);
 
 async function loadRoute() {
@@ -71,9 +59,9 @@ async function loadRoute() {
 
         if (!data || !data.data) throw new Error();
 
-        const matched = data.data.filter(r => r.route === route);
+        currentRoutes = data.data.filter(r => r.route === route);
 
-        if (matched.length === 0) {
+        if (currentRoutes.length === 0) {
             stopSelect.innerHTML = "<option>找不到路線</option>";
             directionSelect.innerHTML = "<option>找不到路線</option>";
             return;
@@ -81,7 +69,8 @@ async function loadRoute() {
 
         directionSelect.innerHTML = "";
 
-        matched.forEach(item => {
+        currentRoutes.forEach(item => {
+
             const option = document.createElement("option");
             option.value = item.bound;
             option.textContent = item.dest_tc;
@@ -106,28 +95,37 @@ async function loadStops() {
 
     try {
 
+        // ✅ 取得對應的 service_type
+        const routeInfo = currentRoutes.find(r => r.bound === bound);
+        if (!routeInfo) throw new Error();
+
+        const serviceType = routeInfo.service_type;
+
         const res = await fetch(
-            `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound}/1`
+            `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound}/${serviceType}`
         );
 
         const data = await res.json();
         if (!data || !data.data) throw new Error();
 
-        const sorted = data.data.sort((a,b)=>a.seq-b.seq);
+        const sortedStops = data.data.sort((a, b) => a.seq - b.seq);
 
         stopSelect.innerHTML = "";
 
-        sorted.forEach(item => {
+        for (const stopItem of sortedStops) {
 
-            const stopInfo = allStops.find(s => s.stop === item.stop);
+            const stopRes = await fetch(
+                `https://data.etabus.gov.hk/v1/transport/kmb/stop/${stopItem.stop}`
+            );
 
-            if (stopInfo) {
-                const option = document.createElement("option");
-                option.value = stopInfo.stop;
-                option.textContent = stopInfo.name_tc;
-                stopSelect.appendChild(option);
-            }
-        });
+            const stopData = await stopRes.json();
+            if (!stopData || !stopData.data) continue;
+
+            const option = document.createElement("option");
+            option.value = stopData.data.stop;
+            option.textContent = stopData.data.name_tc;
+            stopSelect.appendChild(option);
+        }
 
         if (stopSelect.innerHTML === "")
             stopSelect.innerHTML = "<option>無站點資料</option>";
