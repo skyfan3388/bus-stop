@@ -11,28 +11,35 @@ body {
     padding: 20px;
 }
 
+h2 {
+    margin-bottom: 20px;
+}
+
 .container {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
 
-input, select {
+select, input {
     padding: 10px;
     font-size: 16px;
 }
 
-.destinationSelect {
+/* 左：尾站 */
+#destinationSelect {
     flex: 1.5;
-    min-width: 200px;
+    min-width: 180px;
 }
 
-.stopSelect {
+/* 中：所有站 */
+#stopSelect {
     flex: 2;
     min-width: 250px;
 }
 
-.routeInput {
+/* 右：輸入 */
+#routeInput {
     flex: 1;
     min-width: 150px;
 }
@@ -46,17 +53,17 @@ input, select {
 <div class="container">
 
     <!-- 左：尾站 -->
-    <select id="destinationSelect" class="destinationSelect">
+    <select id="destinationSelect">
         <option>請輸入巴士號碼</option>
     </select>
 
     <!-- 中：所有站 -->
-    <select id="stopSelect" class="stopSelect">
+    <select id="stopSelect">
         <option>請輸入巴士號碼</option>
     </select>
 
     <!-- 右：輸入巴士號碼 -->
-    <input type="text" id="routeInput" class="routeInput"
+    <input type="text" id="routeInput"
            placeholder="輸入巴士號碼 (例如 38)">
 
 </div>
@@ -69,22 +76,26 @@ const stopSelect = document.getElementById("stopSelect");
 
 let debounceTimer;
 
-/* ✅ 輸入巴士號碼 */
+/* =========================
+   輸入巴士號碼
+========================= */
 routeInput.addEventListener("input", function () {
 
     clearTimeout(debounceTimer);
 
-    debounceTimer = setTimeout(() => {
-        loadRoute();
-    }, 500);
+    debounceTimer = setTimeout(loadRoute, 500);
+
 });
 
-/* ✅ 選擇尾站 */
+
+/* =========================
+   選擇尾站
+========================= */
 destinationSelect.addEventListener("change", loadStops);
 
 
 /* =========================
-   讀取路線（顯示尾站）
+   讀取路線 → 顯示尾站
 ========================= */
 async function loadRoute() {
 
@@ -111,6 +122,7 @@ async function loadRoute() {
 
         if (matched.length === 0) {
             destinationSelect.innerHTML = "<option>找不到路線</option>";
+            stopSelect.innerHTML = "<option>找不到路線</option>";
             return;
         }
 
@@ -128,7 +140,7 @@ async function loadRoute() {
             destinationSelect.appendChild(option);
         });
 
-        loadStops();
+        loadStops(); // 自動載入第一個方向
 
     } catch (error) {
 
@@ -139,7 +151,7 @@ async function loadRoute() {
 
 
 /* =========================
-   讀取該方向所有站
+   讀取站點
 ========================= */
 async function loadStops() {
 
@@ -152,7 +164,7 @@ async function loadStops() {
 
     const [bound, serviceType] = selected.split("|");
 
-    // ✅ 將 O / I 轉成 outbound / inbound
+    // ✅ 轉成 outbound / inbound
     const boundText = bound === "O" ? "outbound" : "inbound";
 
     try {
@@ -172,6 +184,7 @@ async function loadStops() {
             parseInt(a.seq) - parseInt(b.seq)
         );
 
+        // 同時抓所有站資料
         const stopPromises = sortedStops.map(item =>
             fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${item.stop}`)
                 .then(res => res.json())
