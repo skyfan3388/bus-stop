@@ -137,7 +137,7 @@ async function loadStops() {
         const serviceType = routeInfo.service_type;
 
         const routeUrl =
-            `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound}/${serviceType}`;
+            `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/outbound/1`;
 
         const routeResponse = await fetch(routeUrl);
         const routeData = await routeResponse.json();
