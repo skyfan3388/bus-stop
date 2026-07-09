@@ -3,56 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巴士路線查詢</title>
+<title> </title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
-
-.container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-input, select {
-    padding: 10px;
-    font-size: 16px;
-}
-
-.routeInput {
-    flex: 1;
-    min-width: 120px;
-}
-
-.stopSelect {
-    flex: 2;
-    min-width: 220px;
-}
-
-.directionSelect {
-    flex: 2;
-    min-width: 200px;
-}
+body { font-family: Arial; padding:20px; }
+.container { display:flex; gap:10px; flex-wrap:wrap; }
+input, select { padding:10px; font-size:16px; }
+.routeInput { flex:1; min-width:120px; }
+.stopSelect { flex:2; min-width:220px; }
+.directionSelect { flex:2; min-width:200px; }
 </style>
 </head>
-
 <body>
 
 <h2>巴士路線查詢</h2>
 
 <div class="container">
-    <!-- 左：輸入巴士號碼 -->
     <input type="text" id="routeInput" class="routeInput" placeholder="請輸入巴士號碼">
-
-    <!-- 中：所有站名 -->
     <select id="stopSelect" class="stopSelect">
         <option>請輸入巴士號碼</option>
     </select>
-
-    <!-- 右：尾站 -->
     <select id="directionSelect" class="directionSelect">
         <option>請輸入巴士號碼</option>
     </select>
@@ -66,61 +36,52 @@ const directionSelect = document.getElementById("directionSelect");
 
 let debounceTimer;
 
-// 自動搜尋
 routeInput.addEventListener("input", function () {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(() => {
-        loadRoute();
-    }, 500);
+    debounceTimer = setTimeout(loadRoute, 500);
 });
 
-directionSelect.addEventListener("change", function () {
-    loadStops();
-});
+directionSelect.addEventListener("change", loadStops);
 
 async function loadRoute() {
 
     const route = routeInput.value.trim().toUpperCase();
-
-    if (!route) {
-        stopSelect.innerHTML = "<option>請輸入巴士號碼</option>";
-        directionSelect.innerHTML = "<option>請輸入巴士號碼</option>";
-        return;
-    }
+    if (!route) return;
 
     stopSelect.innerHTML = "<option>載入中...</option>";
     directionSelect.innerHTML = "<option>載入中...</option>";
 
     try {
 
-        // 取得所有 route 再 filter
         const res = await fetch("https://data.etabus.gov.hk/v1/transport/kmb/route/");
+        if (!res.ok) throw new Error("Network error");
+
         const data = await res.json();
+        if (!data || !data.data) throw new Error("Invalid data");
 
-        const matchedRoutes = data.data.filter(r => r.route === route);
+        const matched = data.data.filter(r => r.route === route);
 
-        if (matchedRoutes.length === 0) {
+        if (matched.length === 0) {
             stopSelect.innerHTML = "<option>找不到路線</option>";
             directionSelect.innerHTML = "<option>找不到路線</option>";
             return;
         }
 
-        // ✅ 右邊只顯示尾站
         directionSelect.innerHTML = "";
 
-        matchedRoutes.forEach(item => {
+        matched.forEach(item => {
             const option = document.createElement("option");
-            option.value = item.bound;   // O / I
-            option.textContent = item.dest_tc; // 只顯示尾站
+            option.value = item.bound;
+            option.textContent = item.dest_tc;
             directionSelect.appendChild(option);
         });
 
         loadStops();
 
-    } catch (error) {
-        console.error(error);
-        stopSelect.innerHTML = "<option>發生錯誤</option>";
-        directionSelect.innerHTML = "<option>發生錯誤</option>";
+    } catch (err) {
+        console.error(err);
+        stopSelect.innerHTML = "<option>API 讀取失敗</option>";
+        directionSelect.innerHTML = "<option>API 讀取失敗</option>";
     }
 }
 
@@ -128,47 +89,51 @@ async function loadStops() {
 
     const route = routeInput.value.trim().toUpperCase();
     const bound = directionSelect.value;
-
     if (!route || !bound) return;
 
     stopSelect.innerHTML = "<option>載入站點...</option>";
 
     try {
 
-        // ✅ 正確使用 O / I
         const res = await fetch(
             `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${bound}/1`
         );
 
+        if (!res.ok) throw new Error("Stop fetch error");
+
         const data = await res.json();
+        if (!data || !data.data) throw new Error("Invalid stop data");
 
-        const sortedStops = data.data.sort((a, b) =>
-            parseInt(a.seq) - parseInt(b.seq)
-        );
-
-        const stopPromises = sortedStops.map(item =>
-            fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${item.stop}`)
-                .then(res => res.json())
-        );
-
-        const stopResults = await Promise.all(stopPromises);
+        const sorted = data.data.sort((a,b)=>a.seq-b.seq);
 
         stopSelect.innerHTML = "";
 
-        stopResults.forEach(result => {
-            const option = document.createElement("option");
-            option.value = result.data.stop;
-            option.textContent = result.data.name_tc;
-            stopSelect.appendChild(option);
-        });
+        for (const stopItem of sorted) {
 
-    } catch (error) {
-        console.error(error);
+            const stopRes = await fetch(
+                `https://data.etabus.gov.hk/v1/transport/kmb/stop/${stopItem.stop}`
+            );
+
+            if (!stopRes.ok) continue;
+
+            const stopData = await stopRes.json();
+            if (!stopData || !stopData.data) continue;
+
+            const option = document.createElement("option");
+            option.value = stopData.data.stop;
+            option.textContent = stopData.data.name_tc;
+            stopSelect.appendChild(option);
+        }
+
+        if (stopSelect.innerHTML === "")
+            stopSelect.innerHTML = "<option>無站點資料</option>";
+
+    } catch (err) {
+        console.error(err);
         stopSelect.innerHTML = "<option>發生錯誤</option>";
     }
 }
 
 </script>
-
 </body>
 </html>
