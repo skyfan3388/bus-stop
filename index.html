@@ -1,219 +1,427 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>巴士站查詢</title>
+  <meta charset="UTF-8" />
+  <title>女性壺鈴訓練計劃 PDF版</title>
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 10mm;
+    }
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-h2 {
-    margin-bottom: 20px;
-}
+    body {
+      font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
+      color: #111827;
+      margin: 0;
+      background: white;
+      font-size: 11px;
+      line-height: 1.4;
+    }
 
-.container {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+    .page {
+      width: 100%;
+      padding: 0;
+    }
 
-select, input {
-    padding: 10px;
-    font-size: 16px;
-}
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin: 0 0 6px;
+      color: #0f766e;
+    }
 
-/* 左：尾站 */
-#destinationSelect {
-    flex: 1.5;
-    min-width: 180px;
-}
+    .subtitle {
+      text-align: center;
+      font-size: 12px;
+      margin-bottom: 10px;
+      color: #4b5563;
+    }
 
-/* 中：所有站 */
-#stopSelect {
-    flex: 2;
-    min-width: 250px;
-}
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
 
-/* 右：輸入 */
-#routeInput {
-    flex: 1;
-    min-width: 150px;
-}
-</style>
+    .info-box {
+      border: 1px solid #99f6e4;
+      background: #f0fdfa;
+      padding: 6px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .info-box strong {
+      display: block;
+      color: #0f766e;
+      font-size: 11px;
+    }
+
+    .info-box span {
+      font-size: 10px;
+      color: #374151;
+    }
+
+    h2 {
+      font-size: 15px;
+      margin: 12px 0 6px;
+      color: #0f766e;
+      border-left: 4px solid #0f766e;
+      padding-left: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      page-break-inside: avoid;
+      margin-bottom: 8px;
+    }
+
+    th {
+      background: #0f766e;
+      color: white;
+      font-size: 10px;
+      padding: 5px;
+      border: 1px solid #0f766e;
+      text-align: left;
+    }
+
+    td {
+      border: 1px solid #d1d5db;
+      padding: 5px;
+      vertical-align: top;
+      font-size: 10px;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    .tag-a {
+      color: #0e7490;
+      font-weight: bold;
+    }
+
+    .tag-b {
+      color: #15803d;
+      font-weight: bold;
+    }
+
+    .tag-c {
+      color: #92400e;
+      font-weight: bold;
+    }
+
+    .small-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .box {
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      padding: 6px;
+      background: #f9fafb;
+      page-break-inside: avoid;
+    }
+
+    .box h3 {
+      margin: 0 0 4px;
+      color: #0f766e;
+      font-size: 12px;
+    }
+
+    ul {
+      margin: 4px 0 0 16px;
+      padding: 0;
+    }
+
+    li {
+      margin-bottom: 2px;
+    }
+
+    .warning {
+      border: 1px solid #fed7aa;
+      background: #fff7ed;
+      color: #9a3412;
+      padding: 6px;
+      border-radius: 6px;
+      margin-top: 8px;
+      font-size: 10px;
+    }
+
+    .image-note {
+      border: 1px dashed #9ca3af;
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+
+    footer {
+      text-align: center;
+      color: #6b7280;
+      margin-top: 8px;
+      font-size: 9px;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="page">
+    <h1>女性壺鈴訓練計劃</h1>
+    <div class="subtitle">每週 3 日｜每次約 35–45 分鐘｜初學至初中級適用</div>
 
-<h2>巴士站查詢</h2>
+    <div class="info-grid">
+      <div class="info-box">
+        <strong>訓練頻率</strong>
+        <span>每週 3 日</span>
+      </div>
+      <div class="info-box">
+        <strong>每次時間</strong>
+        <span>35–45 分鐘</span>
+      </div>
+      <div class="info-box">
+        <strong>目標</strong>
+        <span>增肌 / 減脂 / 體能</span>
+      </div>
+      <div class="info-box">
+        <strong>程度</strong>
+        <span>初學至初中級</span>
+      </div>
+    </div>
 
-<div class="container">
+    <div class="image-note">
+      動作展示圖片可另外附上：Kettlebell Exercise Reference Guide
+    </div>
 
-    <!-- 左：尾站 -->
-    <select id="destinationSelect">
-        <option>請輸入巴士號碼</option>
-    </select>
+    <h2>完整訓練表</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 11%;">訓練日</th>
+          <th style="width: 19%;">動作</th>
+          <th style="width: 8%;">圖片</th>
+          <th style="width: 10%;">建議重量</th>
+          <th style="width: 13%;">組數 × 次數</th>
+          <th style="width: 9%;">休息</th>
+          <th style="width: 30%;">動作重點</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tag-a">A 下肢+核心</td>
+          <td>Goblet Squat 高腳杯深蹲</td>
+          <td>圖 1</td>
+          <td>8–12 kg</td>
+          <td>3 × 10–12</td>
+          <td>60–90秒</td>
+          <td>壺鈴抱胸前，腰背挺直，膝頭跟腳尖方向。</td>
+        </tr>
+        <tr>
+          <td class="tag-a">A 下肢+核心</td>
+          <td>Kettlebell Deadlift 壺鈴硬拉</td>
+          <td>圖 2</td>
+          <td>12–16 kg</td>
+          <td>3 × 10–12</td>
+          <td>60–90秒</td>
+          <td>屁股向後推，用臀腿發力，不要用腰拉。</td>
+        </tr>
+        <tr>
+          <td class="tag-a">A 下肢+核心</td>
+          <td>Reverse Lunge 反向弓步</td>
+          <td>圖 3</td>
+          <td>徒手 / 4–8 kg</td>
+          <td>3 × 每邊 8–10</td>
+          <td>60秒</td>
+          <td>後腳向後踏，前腳踩穩，膝頭不要內夾。</td>
+        </tr>
+        <tr>
+          <td class="tag-a">A 下肢+核心</td>
+          <td>Glute Bridge 壺鈴臀橋</td>
+          <td>圖 4</td>
+          <td>8–16 kg</td>
+          <td>3 × 12–15</td>
+          <td>45–60秒</td>
+          <td>壺鈴放髖部，用臀部發力推高。</td>
+        </tr>
+        <tr>
+          <td class="tag-a">A 下肢+核心</td>
+          <td>Plank 平板支撐</td>
+          <td>圖 6</td>
+          <td>徒手</td>
+          <td>3 × 30–45秒</td>
+          <td>45秒</td>
+          <td>身體保持一直線，腰不要下陷。</td>
+        </tr>
 
-    <!-- 中：所有站 -->
-    <select id="stopSelect">
-        <option>請輸入巴士號碼</option>
-    </select>
+        <tr>
+          <td class="tag-b">B 上肢+Swing</td>
+          <td>One-arm Row 單手划船</td>
+          <td>圖 7</td>
+          <td>8–12 kg</td>
+          <td>3 × 每邊 10–12</td>
+          <td>60秒</td>
+          <td>背平，手肘向後拉，不要聳肩。</td>
+        </tr>
+        <tr>
+          <td class="tag-b">B 上肢+Swing</td>
+          <td>Floor Press 地板推胸</td>
+          <td>圖 8</td>
+          <td>6–10 kg</td>
+          <td>3 × 每邊 8–12</td>
+          <td>60秒</td>
+          <td>手腕保持穩定，控制壺鈴下降。</td>
+        </tr>
+        <tr>
+          <td class="tag-b">B 上肢+Swing</td>
+          <td>Half-kneeling Press 半跪肩推</td>
+          <td>圖 13</td>
+          <td>4–8 kg</td>
+          <td>3 × 每邊 6–8</td>
+          <td>60–90秒</td>
+          <td>核心收緊，不要拗腰，不要聳肩。</td>
+        </tr>
+        <tr>
+          <td class="tag-b">B 上肢+Swing</td>
+          <td>Two-hand Kettlebell Swing 雙手壺鈴擺盪</td>
+          <td>圖 5</td>
+          <td>8–12 kg</td>
+          <td>5 × 10</td>
+          <td>45–60秒</td>
+          <td>髖關節發力，不是用手臂舉起。</td>
+        </tr>
+        <tr>
+          <td class="tag-b">B 上肢+Swing</td>
+          <td>Dead Bug 死蟲式</td>
+          <td>圖 10</td>
+          <td>徒手 / 2–4 kg</td>
+          <td>3 × 每邊 8–10</td>
+          <td>45秒</td>
+          <td>腰背貼地，慢慢控制手腳動作。</td>
+        </tr>
 
-    <!-- 右：輸入巴士號碼 -->
-    <input type="text" id="routeInput"
-           placeholder="輸入巴士號碼 (例如 38)">
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>Goblet Squat 高腳杯深蹲</td>
+          <td>圖 1</td>
+          <td>8–12 kg</td>
+          <td>10</td>
+          <td>30–45秒</td>
+          <td>保持胸口打開，穩定下蹲。</td>
+        </tr>
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>Romanian Deadlift 羅馬尼亞硬拉</td>
+          <td>圖 11</td>
+          <td>12–16 kg</td>
+          <td>10</td>
+          <td>30–45秒</td>
+          <td>保持背平，感覺大腿後側拉伸。</td>
+        </tr>
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>Two-hand Kettlebell Swing 雙手壺鈴擺盪</td>
+          <td>圖 5</td>
+          <td>8–12 kg</td>
+          <td>12</td>
+          <td>30–45秒</td>
+          <td>臀部爆發發力，手臂只是引導。</td>
+        </tr>
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>One-arm Row 單手划船</td>
+          <td>圖 7</td>
+          <td>8–12 kg</td>
+          <td>每邊 10</td>
+          <td>30–45秒</td>
+          <td>左右各做一次，背部發力。</td>
+        </tr>
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>Farmer Carry 農夫行走</td>
+          <td>圖 12</td>
+          <td>12–16 kg</td>
+          <td>30–45秒</td>
+          <td>30–45秒</td>
+          <td>身體保持直，不要側傾。</td>
+        </tr>
+        <tr>
+          <td class="tag-c">C 全身循環</td>
+          <td>Russian Twist 俄羅斯轉體</td>
+          <td>圖 13</td>
+          <td>4–8 kg</td>
+          <td>每邊 10</td>
+          <td>30–45秒</td>
+          <td>核心控制，避免只用手臂左右擺。</td>
+        </tr>
+      </tbody>
+    </table>
 
-</div>
+    <div class="small-grid">
+      <div class="box">
+        <h3>每週安排</h3>
+        <ul>
+          <li>星期一：訓練 A，下肢 + 核心</li>
+          <li>星期三：訓練 B，上肢 + Swing</li>
+          <li>星期五：訓練 C，全身循環</li>
+          <li>其他日子：休息 / 快走 / 伸展</li>
+        </ul>
+      </div>
 
-<script>
+      <div class="box">
+        <h3>C 日循環方式</h3>
+        <ul>
+          <li>6 個動作完成為 1 圈</li>
+          <li>總共做 3–4 圈</li>
+          <li>每個動作休息 30–45 秒</li>
+          <li>每圈之間休息 90 秒</li>
+        </ul>
+      </div>
 
-const routeInput = document.getElementById("routeInput");
-const destinationSelect = document.getElementById("destinationSelect");
-const stopSelect = document.getElementById("stopSelect");
+      <div class="box">
+        <h3>4 星期進度</h3>
+        <ul>
+          <li>第 1 星期：適應動作，重量保守</li>
+          <li>第 2 星期：做足 3 組</li>
+          <li>第 3 星期：每組加 1–2 次</li>
+          <li>第 4 星期：下肢加 2–4 kg，上肢加 1–2 kg</li>
+        </ul>
+      </div>
 
-let debounceTimer;
+      <div class="box">
+        <h3>重量選擇原則</h3>
+        <ul>
+          <li>最後 2 次吃力但姿勢穩定 = 合適</li>
+          <li>太輕鬆可加重 1–2 kg</li>
+          <li>腰痛、肩痛、膝痛要即時減重或停止</li>
+          <li>Swing 不應用手臂硬拉</li>
+        </ul>
+      </div>
+    </div>
 
-/* =========================
-   輸入巴士號碼
-========================= */
-routeInput.addEventListener("input", function () {
+    <div class="warning">
+      安全提醒：如有腰背痛、膝痛、肩頸痛、懷孕、產後或其他健康問題，開始訓練前建議先諮詢醫生、物理治療師或合資格教練。
+    </div>
 
-    clearTimeout(debounceTimer);
-
-    debounceTimer = setTimeout(loadRoute, 500);
-
-});
-
-
-/* =========================
-   選擇尾站
-========================= */
-destinationSelect.addEventListener("change", loadStops);
-
-
-/* =========================
-   讀取路線 → 顯示尾站
-========================= */
-async function loadRoute() {
-
-    const route = routeInput.value.trim().toUpperCase();
-
-    if (!route) {
-        destinationSelect.innerHTML = "<option>請輸入巴士號碼</option>";
-        stopSelect.innerHTML = "<option>請輸入巴士號碼</option>";
-        return;
-    }
-
-    destinationSelect.innerHTML = "<option>載入中...</option>";
-    stopSelect.innerHTML = "<option>請選擇尾站</option>";
-
-    try {
-
-        const res = await fetch(
-            "https://data.etabus.gov.hk/v1/transport/kmb/route/"
-        );
-
-        const data = await res.json();
-
-        const matched = data.data.filter(r => r.route === route);
-
-        if (matched.length === 0) {
-            destinationSelect.innerHTML = "<option>找不到路線</option>";
-            stopSelect.innerHTML = "<option>找不到路線</option>";
-            return;
-        }
-
-        destinationSelect.innerHTML = "";
-
-        matched.forEach(item => {
-
-            const option = document.createElement("option");
-
-            // 儲存 O|1 或 I|1
-            option.value = `${item.bound}|${item.service_type}`;
-
-            option.textContent = item.dest_tc;
-
-            destinationSelect.appendChild(option);
-        });
-
-        loadStops(); // 自動載入第一個方向
-
-    } catch (error) {
-
-        console.error(error);
-        destinationSelect.innerHTML = "<option>API 錯誤</option>";
-    }
-}
-
-
-/* =========================
-   讀取站點
-========================= */
-async function loadStops() {
-
-    const route = routeInput.value.trim().toUpperCase();
-    const selected = destinationSelect.value;
-
-    if (!route || !selected) return;
-
-    stopSelect.innerHTML = "<option>載入站點...</option>";
-
-    const [bound, serviceType] = selected.split("|");
-
-    // ✅ 轉成 outbound / inbound
-    const boundText = bound === "O" ? "outbound" : "inbound";
-
-    try {
-
-        const routeUrl =
-            `https://data.etabus.gov.hk/v1/transport/kmb/route-stop/${route}/${boundText}/${serviceType}`;
-
-        const routeResponse = await fetch(routeUrl);
-        const routeData = await routeResponse.json();
-
-        if (!routeData.data || routeData.data.length === 0) {
-            stopSelect.innerHTML = "<option>找不到站點</option>";
-            return;
-        }
-
-        const sortedStops = routeData.data.sort((a, b) =>
-            parseInt(a.seq) - parseInt(b.seq)
-        );
-
-        // 同時抓所有站資料
-        const stopPromises = sortedStops.map(item =>
-            fetch(`https://data.etabus.gov.hk/v1/transport/kmb/stop/${item.stop}`)
-                .then(res => res.json())
-        );
-
-        const stopResults = await Promise.all(stopPromises);
-
-        stopSelect.innerHTML = "";
-
-        stopResults.forEach(result => {
-
-            if (!result.data) return;
-
-            const option = document.createElement("option");
-
-            option.value = result.data.stop;
-            option.textContent = result.data.name_tc;
-
-            stopSelect.appendChild(option);
-        });
-
-    } catch (error) {
-
-        console.error(error);
-        stopSelect.innerHTML = "<option>發生錯誤</option>";
-    }
-}
-
-</script>
-
+    <footer>
+      女性壺鈴訓練計劃｜PDF列印版
+    </footer>
+  </div>
 </body>
 </html>
