@@ -2,7 +2,10 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
-  <title>女性壺鈴訓練計劃 PDF版</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Iriz 的訓練手冊</title>
+
   <style>
     @page {
       size: A4 landscape;
@@ -17,28 +20,60 @@
       font-family: "Microsoft JhengHei", "Noto Sans TC", Arial, sans-serif;
       color: #111827;
       margin: 0;
-      background: white;
+      background: #f3f4f6;
       font-size: 11px;
       line-height: 1.4;
     }
 
     .page {
       width: 100%;
-      padding: 0;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px;
+      background: white;
     }
 
     h1 {
       text-align: center;
-      font-size: 24px;
+      font-size: 26px;
       margin: 0 0 6px;
       color: #0f766e;
     }
 
     .subtitle {
       text-align: center;
-      font-size: 12px;
-      margin-bottom: 10px;
+      font-size: 13px;
+      margin-bottom: 12px;
       color: #4b5563;
+    }
+
+    .photo-section {
+      border: 1px dashed #9ca3af;
+      border-radius: 8px;
+      padding: 8px;
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 12px;
+      background: #f9fafb;
+      page-break-inside: avoid;
+    }
+
+    .photo-section h2 {
+      border-left: none;
+      padding-left: 0;
+      margin: 4px 0 8px;
+      font-size: 15px;
+      color: #0f766e;
+    }
+
+    .exercise-img {
+      width: 100%;
+      max-height: 420px;
+      object-fit: contain;
+      display: block;
+      margin: 0 auto;
+      border-radius: 6px;
+      background: white;
     }
 
     .info-grid {
@@ -80,6 +115,7 @@
       border-collapse: collapse;
       page-break-inside: avoid;
       margin-bottom: 8px;
+      background: white;
     }
 
     th {
@@ -157,16 +193,6 @@
       font-size: 10px;
     }
 
-    .image-note {
-      border: 1px dashed #9ca3af;
-      border-radius: 6px;
-      padding: 8px;
-      text-align: center;
-      color: #6b7280;
-      margin-bottom: 8px;
-      font-size: 10px;
-    }
-
     footer {
       text-align: center;
       color: #6b7280;
@@ -174,43 +200,128 @@
       font-size: 9px;
     }
 
+    .print-tip {
+      max-width: 1200px;
+      margin: 12px auto;
+      padding: 10px 16px;
+      background: #ecfeff;
+      color: #155e75;
+      border: 1px solid #a5f3fc;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+
+    .print-tip strong {
+      color: #0e7490;
+    }
+
     @media print {
       body {
+        background: white;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+      }
+
+      .page {
+        max-width: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .print-tip {
+        display: none;
+      }
+
+      .photo-section {
+        page-break-inside: avoid;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      body {
+        font-size: 12px;
+      }
+
+      .page {
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .small-grid {
+        grid-template-columns: 1fr;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      th,
+      td {
+        font-size: 10px;
+      }
+
+      .exercise-img {
+        max-height: 320px;
       }
     }
   </style>
 </head>
+
 <body>
+  <div class="print-tip">
+    <strong>PDF 提示：</strong>
+    如要儲存成 PDF，請按 Ctrl + P 或手機瀏覽器分享 / 列印，選擇「Save as PDF / 另存為 PDF」。建議設定：A4、橫向、邊距最小、開啟背景圖形。
+  </div>
+
   <div class="page">
-    <h1>女性壺鈴訓練計劃</h1>
-    <div class="subtitle">每週 3 日｜每次約 35–45 分鐘｜初學至初中級適用</div>
+    <h1>Iriz 的訓練手冊</h1>
+
+    <div class="subtitle">
+      每週 3 日｜每次約 35–45 分鐘｜初學至初中級適用
+    </div>
+
+    <div class="photo-section">
+      <h2>壺鈴訓練動作圖片</h2>
+      <img src="IMG_2937.png" alt="壺鈴訓練動作圖片" class="exercise-img" />
+    </div>
 
     <div class="info-grid">
       <div class="info-box">
         <strong>訓練頻率</strong>
         <span>每週 3 日</span>
       </div>
+
       <div class="info-box">
         <strong>每次時間</strong>
         <span>35–45 分鐘</span>
       </div>
+
       <div class="info-box">
         <strong>目標</strong>
         <span>增肌 / 減脂 / 體能</span>
       </div>
+
       <div class="info-box">
         <strong>程度</strong>
         <span>初學至初中級</span>
       </div>
     </div>
 
-    <div class="image-note">
-      動作展示圖片可另外附上：Kettlebell Exercise Reference Guide
-    </div>
-
     <h2>完整訓練表</h2>
+
     <table>
       <thead>
         <tr>
@@ -223,9 +334,10 @@
           <th style="width: 30%;">動作重點</th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
-          <td class="tag-a">A 下肢+核心</td>
+          <td class="tag-a">A 下肢 + 核心</td>
           <td>Goblet Squat 高腳杯深蹲</td>
           <td>圖 1</td>
           <td>8–12 kg</td>
@@ -233,8 +345,9 @@
           <td>60–90秒</td>
           <td>壺鈴抱胸前，腰背挺直，膝頭跟腳尖方向。</td>
         </tr>
+
         <tr>
-          <td class="tag-a">A 下肢+核心</td>
+          <td class="tag-a">A 下肢 + 核心</td>
           <td>Kettlebell Deadlift 壺鈴硬拉</td>
           <td>圖 2</td>
           <td>12–16 kg</td>
@@ -242,8 +355,9 @@
           <td>60–90秒</td>
           <td>屁股向後推，用臀腿發力，不要用腰拉。</td>
         </tr>
+
         <tr>
-          <td class="tag-a">A 下肢+核心</td>
+          <td class="tag-a">A 下肢 + 核心</td>
           <td>Reverse Lunge 反向弓步</td>
           <td>圖 3</td>
           <td>徒手 / 4–8 kg</td>
@@ -251,8 +365,9 @@
           <td>60秒</td>
           <td>後腳向後踏，前腳踩穩，膝頭不要內夾。</td>
         </tr>
+
         <tr>
-          <td class="tag-a">A 下肢+核心</td>
+          <td class="tag-a">A 下肢 + 核心</td>
           <td>Glute Bridge 壺鈴臀橋</td>
           <td>圖 4</td>
           <td>8–16 kg</td>
@@ -260,8 +375,9 @@
           <td>45–60秒</td>
           <td>壺鈴放髖部，用臀部發力推高。</td>
         </tr>
+
         <tr>
-          <td class="tag-a">A 下肢+核心</td>
+          <td class="tag-a">A 下肢 + 核心</td>
           <td>Plank 平板支撐</td>
           <td>圖 6</td>
           <td>徒手</td>
@@ -271,7 +387,7 @@
         </tr>
 
         <tr>
-          <td class="tag-b">B 上肢+Swing</td>
+          <td class="tag-b">B 上肢 + Swing</td>
           <td>One-arm Row 單手划船</td>
           <td>圖 7</td>
           <td>8–12 kg</td>
@@ -279,8 +395,9 @@
           <td>60秒</td>
           <td>背平，手肘向後拉，不要聳肩。</td>
         </tr>
+
         <tr>
-          <td class="tag-b">B 上肢+Swing</td>
+          <td class="tag-b">B 上肢 + Swing</td>
           <td>Floor Press 地板推胸</td>
           <td>圖 8</td>
           <td>6–10 kg</td>
@@ -288,8 +405,9 @@
           <td>60秒</td>
           <td>手腕保持穩定，控制壺鈴下降。</td>
         </tr>
+
         <tr>
-          <td class="tag-b">B 上肢+Swing</td>
+          <td class="tag-b">B 上肢 + Swing</td>
           <td>Half-kneeling Press 半跪肩推</td>
           <td>圖 13</td>
           <td>4–8 kg</td>
@@ -297,8 +415,9 @@
           <td>60–90秒</td>
           <td>核心收緊，不要拗腰，不要聳肩。</td>
         </tr>
+
         <tr>
-          <td class="tag-b">B 上肢+Swing</td>
+          <td class="tag-b">B 上肢 + Swing</td>
           <td>Two-hand Kettlebell Swing 雙手壺鈴擺盪</td>
           <td>圖 5</td>
           <td>8–12 kg</td>
@@ -306,8 +425,9 @@
           <td>45–60秒</td>
           <td>髖關節發力，不是用手臂舉起。</td>
         </tr>
+
         <tr>
-          <td class="tag-b">B 上肢+Swing</td>
+          <td class="tag-b">B 上肢 + Swing</td>
           <td>Dead Bug 死蟲式</td>
           <td>圖 10</td>
           <td>徒手 / 2–4 kg</td>
@@ -325,6 +445,7 @@
           <td>30–45秒</td>
           <td>保持胸口打開，穩定下蹲。</td>
         </tr>
+
         <tr>
           <td class="tag-c">C 全身循環</td>
           <td>Romanian Deadlift 羅馬尼亞硬拉</td>
@@ -334,6 +455,7 @@
           <td>30–45秒</td>
           <td>保持背平，感覺大腿後側拉伸。</td>
         </tr>
+
         <tr>
           <td class="tag-c">C 全身循環</td>
           <td>Two-hand Kettlebell Swing 雙手壺鈴擺盪</td>
@@ -343,6 +465,7 @@
           <td>30–45秒</td>
           <td>臀部爆發發力，手臂只是引導。</td>
         </tr>
+
         <tr>
           <td class="tag-c">C 全身循環</td>
           <td>One-arm Row 單手划船</td>
@@ -352,6 +475,7 @@
           <td>30–45秒</td>
           <td>左右各做一次，背部發力。</td>
         </tr>
+
         <tr>
           <td class="tag-c">C 全身循環</td>
           <td>Farmer Carry 農夫行走</td>
@@ -361,6 +485,7 @@
           <td>30–45秒</td>
           <td>身體保持直，不要側傾。</td>
         </tr>
+
         <tr>
           <td class="tag-c">C 全身循環</td>
           <td>Russian Twist 俄羅斯轉體</td>
@@ -420,7 +545,7 @@
     </div>
 
     <footer>
-      女性壺鈴訓練計劃｜PDF列印版
+      Iriz 的訓練手冊｜PDF列印版
     </footer>
   </div>
 </body>
